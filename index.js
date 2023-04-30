@@ -7,7 +7,8 @@ const app = express()
 
 app.use(express.json())
 
-app.use(morgan('tiny'))
+morgan.token('persondata', function(req, res) {return JSON.stringify(req.body)})
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :persondata'))
 
 // Functions and data
 
@@ -90,8 +91,9 @@ app.post('/api/persons', (request, response) => {
 
     persons = persons.concat(person);
 
+    
+    // morgan.token('persondata', function() {return JSON.stringify(person)})
 
-    console.log(person);
     response.json(person)
 })
 
