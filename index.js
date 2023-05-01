@@ -1,11 +1,13 @@
 // Imports
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 
 const app = express()
 
 
 app.use(express.json())
+app.use(cors())
 
 morgan.token('persondata', function(req, res) {return JSON.stringify(req.body)})
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :persondata'))
@@ -91,9 +93,6 @@ app.post('/api/persons', (request, response) => {
 
     persons = persons.concat(person);
 
-    
-    // morgan.token('persondata', function() {return JSON.stringify(person)})
-
     response.json(person)
 })
 
@@ -118,7 +117,7 @@ app.delete('/api/persons/:id', (request, response) => {
 
 // Port config
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
