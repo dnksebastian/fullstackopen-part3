@@ -23,4 +23,3 @@ Content-Type: application/json
       "name": "Anna Doe", 
       "number": "12-1234444444456"
 }
-
